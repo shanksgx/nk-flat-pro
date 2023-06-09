@@ -4,3 +4,5 @@ dist
 mock
 .stylelintrc.js
 .prettierrc.js
+.cz-config.js
+commitlint.config.js
