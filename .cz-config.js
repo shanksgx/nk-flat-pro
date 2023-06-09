@@ -53,6 +53,7 @@ module.exports = {
     confirmCommit: '确认要使用以上信息提交？(y/n)'
   },
   allowBreakingChanges: [':sparkles: feat', ':bug: fix'],
+  skipQuestions: ['body', 'footer'],
   allowCustomScopes: true,
   // 默认长度72
   subjectLimit: 200
