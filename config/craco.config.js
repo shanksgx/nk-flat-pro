@@ -32,15 +32,26 @@ module.exports = {
       }
     },
     configure: (webpackConfig, { paths }) => {
+      webpackConfig.devtool = process.env.REACT_NODE_ENV === 'dev' ? 'eval-source-map' : 'nosources-source-map'
       paths.appBuild = 'build'
       webpackConfig.output = {
         ...webpackConfig.output,
         publicPath: process.env.REACT_NODE_ENV === 'test' ? './' : '/'
       }
+      if (process.env.REACT_NODE_ENV !== 'dev') {
+        webpackConfig.plugins = webpackConfig.plugins.concat(
+          new BundleAnalyzerPlugin({
+            analyzerMode: "server",
+            analyzerHost: "127.0.0.1",
+            analyzerPort: 8888,
+            openAnalyzer: true, // 构建完打开浏览器
+            reportFilename: path.resolve(__dirname, `analyzer/index.html`),
+          })
+        )
+      }
       return webpackConfig
     },
     plugins: [
-      new BundleAnalyzerPlugin(),  // 使用默认配置
       new WebpackBar({ profile: true }),
       new CircularDependencyPlugin({
         exclude: /node_modules/,
