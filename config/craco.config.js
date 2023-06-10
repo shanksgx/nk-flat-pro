@@ -6,11 +6,30 @@ const CracoLessPlugin = require('craco-less')
 const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const WebpackBar = require('webpackbar')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   webpack: {
     alias: {
       '@': resolve('src')
+    },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+        minSize: 10000,
+        maxSize: 200000,
+        cacheGroups: {
+          defaultVendors: {
+            test: /[\/]node_modules[\/]/,
+            priority: -10
+          },
+          default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
+          }
+        }
+      }
     },
     configure: (webpackConfig, { paths }) => {
       paths.appBuild = 'build'
@@ -21,6 +40,7 @@ module.exports = {
       return webpackConfig
     },
     plugins: [
+      new BundleAnalyzerPlugin(),  // 使用默认配置
       new WebpackBar({ profile: true }),
       new CircularDependencyPlugin({
         exclude: /node_modules/,
