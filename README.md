@@ -1,2 +1,2 @@
 # nk-flat-pro
-nk-flat-pro is admin project 
+nk-flat-pro is admin project template
