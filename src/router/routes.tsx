@@ -2,6 +2,7 @@ import { lazy } from 'react'
 
 const About = lazy(() => import('@/pages/About/index'))
 const Recoil = lazy(() => import('@/pages/Recoil/index'))
+const TestModule = lazy(() => import('@/pages/Test/index'))
 
 const Routes = [
   {
@@ -11,6 +12,10 @@ const Routes = [
   {
     path: '/recoil',
     element: <Recoil />
+  },
+  {
+    path: '/test',
+    element: <TestModule />
   }
 ]
 
