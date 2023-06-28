@@ -37,7 +37,8 @@
     "lint-staged": "lint-staged",
     "commit": "git add . && git cz",
     "preinstall": "npx only-allow pnpm",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "analysis": "windicss-analysis"
   },
   "cracoConfig": "config/craco.config.js",
   "eslintConfig": {
@@ -105,6 +106,9 @@
     "stylelint-less": "^1.0.6",
     "stylelint-order": "^5.0.0",
     "webpack-bundle-analyzer": "^4.9.0",
-    "webpackbar": "^5.0.2"
+    "webpackbar": "^5.0.2",
+    "windicss": "^3.5.6",
+    "windicss-analysis": "^0.3.5",
+    "windicss-webpack-plugin": "^1.7.8"
   }
 }

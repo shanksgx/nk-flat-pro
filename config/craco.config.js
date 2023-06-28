@@ -7,6 +7,7 @@ const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const WebpackBar = require('webpackbar')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
 
 module.exports = {
   webpack: {
@@ -61,7 +62,14 @@ module.exports = {
         cwd: process.cwd()
       }),
       // 查看打包的进度
-      new SimpleProgressWebpackPlugin()
+      new SimpleProgressWebpackPlugin(),
+      new WindiCSSWebpackPlugin({
+        virtualModulePath: 'src',
+        server: {
+          port: 9999,
+          host: 'localhost'
+        }
+      })
     ]
   },
   plugins: [
