@@ -56,7 +56,7 @@ const App: React.FC = () => {
             <header className="app-header">
               <img src={logo} className="app-logo" alt="logo" />
               <Title heading={2} type="success">
-                {process.env.REACT_APP_ENV}
+                <div className="m-50px">{process.env.REACT_APP_ENV}</div>
               </Title>
               <Typography.Title heading={4} ellipsis={{ wrapper: 'span' }}>
                 {mockTitle}

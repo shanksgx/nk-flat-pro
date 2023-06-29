@@ -7,6 +7,8 @@ const SimpleProgressWebpackPlugin = require('simple-progress-webpack-plugin')
 const WebpackBar = require('webpackbar')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
+const { loaderByName } = require("@craco/craco")
 
 module.exports = {
   webpack: {
@@ -61,7 +63,14 @@ module.exports = {
         cwd: process.cwd()
       }),
       // 查看打包的进度
-      new SimpleProgressWebpackPlugin()
+      new SimpleProgressWebpackPlugin(),
+      new WindiCSSWebpackPlugin({
+        virtualModulePath: 'src',
+        server: {
+          port: 9999,
+          host: 'localhost'
+        }
+      })
     ]
   },
   plugins: [
@@ -80,6 +89,16 @@ module.exports = {
             //   hack: `true; @import '@arco-design/web-react/dist/css/arco.css';`
             // }
           }
+        },
+        modifyLessModuleRule(lessModuleRule) {
+          lessModuleRule.test = /.module.less$/;
+          console.log(lessModuleRule)
+          const cssLoader = lessModuleRule.use.find(loaderByName("css-loader"));
+          cssLoader.options.modules = {
+            localIdentName: "[local]_[hash:base64:5]",
+          };
+ 
+          return lessModuleRule;
         }
       }
     }
